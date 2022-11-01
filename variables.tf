@@ -8,16 +8,16 @@ variable "vpc_public_subnet" {
   type = list(string)
 }
 
-variable "ingress_cidr_blocks" {
+variable "sg_cidr_blocks" {
   type = list(string)
 }
 
-variable "ingress_rules" {
-  type = list(string)
+variable "blockchain_port" {
+  type = number
 }
 
-variable "egress_rules" {
-  type = list(string)
+variable "blockexplorer_port" {
+  type = number
 }
 
 # Instance Module:

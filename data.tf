@@ -1,13 +1,13 @@
 # Security Group Module:
 
-data "aws_vpc" "catapimba_vpc" {
+data "aws_vpc" "blockchain_vpc" {
   filter {
     name   = "tag:Name"
     values = var.vpc_name
   }
 }
 
-data "aws_subnet" "catapimba_public_subnet" {
+data "aws_subnet" "blockchain_public_subnet" {
   filter {
     name   = "cidr-block"
     values = var.vpc_public_subnet
@@ -32,10 +32,10 @@ data "aws_ami" "amazon_linux" {
   owners = var.ami_owner
 }
 
-data "template_file" "user_data_file" {
-  template = file("${path.module}/user_data.sh")
-  vars = {
-    docker_compose_instance_version = "${var.docker_compose_instance_version}"
-    terraform_jenkins_version       = "${var.terraform_jenkins_version}"
-  }
-}
+# data "template_file" "user_data_file" {
+#   template = file("${path.module}/user_data.sh")
+#   vars = {
+#     docker_compose_instance_version = "${var.docker_compose_instance_version}"
+#     terraform_jenkins_version       = "${var.terraform_jenkins_version}"
+#   }
+# }
