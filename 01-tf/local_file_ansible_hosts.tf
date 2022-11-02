@@ -5,7 +5,7 @@ resource "local_file" "foo" {
   ${aws_eip.blockchain_eip.public_ip}
 
   [blockchain:vars]
-  ansible_private_key_file=../tf/server.pem
+  ansible_private_key_file=./blockchain.pem
   ansible_user=ec2-user
   EOF
 }
