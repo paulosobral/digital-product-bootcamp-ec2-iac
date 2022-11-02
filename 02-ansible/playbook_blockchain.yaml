@@ -9,12 +9,27 @@
         state: latest
         update_cache: yes
         update_only: yes
+    - name: Appending the group 'docker' to the user 'ec2-user' groups
+      user:
+        name: ec2-user
+        group: docker
+        append: yes
     - name: Install a list of packages for Docker
       yum:
         name:
           - yum-utils
           - docker
         state: present
+    - name: Install docker-compose from official github repo
+      get_url:
+        url : https://github.com/docker/compose/releases/download/2.10.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+    - name: Start Docker
+      service:
+        name: "docker"
+        enabled: true
+        state: started
   # - name: Nginx Install 
   #   apt:
   #     name: nginx
