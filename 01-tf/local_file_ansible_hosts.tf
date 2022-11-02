@@ -1,6 +1,6 @@
 resource "local_file" "foo" {
   filename = "${path.module}/../02-ansible/hosts"
-  content = <<EOF
+  content  = <<EOF
   [blockchain]
   ${aws_eip.blockchain_eip.public_ip}
 

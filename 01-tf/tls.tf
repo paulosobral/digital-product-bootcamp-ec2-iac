@@ -5,7 +5,7 @@ resource "tls_private_key" "ssh" {
 
 resource "local_file" "server_jammy_key" {
   content         = tls_private_key.ssh.private_key_pem
-  filename        = "blockchain.pem"
+  filename        = "${path.module}/../02-ansible/blockchain.pem"
   file_permission = "0600"
 }
 

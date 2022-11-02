@@ -1,22 +1,28 @@
 ---
-- hosts: server
+- hosts: blockchain
   become: yes
-  remote_user: ubuntu
+  remote_user: ec2-user
   tasks:
-  - name: Nginx Install 
-    apt:
-      name: nginx
-      state: present
-      update_cache: yes
+    - name: Update all installed packages using YUM module
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+        update_only: yes
+  # - name: Nginx Install 
+  #   apt:
+  #     name: nginx
+  #     state: present
+  #     update_cache: yes
 
-  - hostname:
-      name: web01
+  # - hostname:
+  #     name: web01
 
-  - name: Copiando index.html personalizado
-    copy:
-      src: index.html
-      dest: /var/www/html/index.html
-    notify: Restart
+  # - name: Copiando index.html personalizado
+  #   copy:
+  #     src: index.html
+  #     dest: /var/www/html/index.html
+  #   notify: Restart
 
   # - name: restart nginx
   #   service:
@@ -24,8 +30,8 @@
   #     state: restarted
 
 
-  handlers: 
-  - name: Restart
-    service:
-      name: nginx
-      state: restarted
+  # handlers: 
+  # - name: Restart
+  #   service:
+  #     name: nginx
+  #     state: restarted
