@@ -45,8 +45,3 @@ variable "monitoring" {
 variable "iam_instance_profile" {
   type = string
 }
-
-variable "docker_compose_instance_version" {
-  type    = string
-  default = "2.10.2"
-}

@@ -1,0 +1,31 @@
+---
+- hosts: server
+  become: yes
+  remote_user: ubuntu
+  tasks:
+  - name: Nginx Install 
+    apt:
+      name: nginx
+      state: present
+      update_cache: yes
+
+  - hostname:
+      name: web01
+
+  - name: Copiando index.html personalizado
+    copy:
+      src: index.html
+      dest: /var/www/html/index.html
+    notify: Restart
+
+  # - name: restart nginx
+  #   service:
+  #     name: nginx
+  #     state: restarted
+
+
+  handlers: 
+  - name: Restart
+    service:
+      name: nginx
+      state: restarted
