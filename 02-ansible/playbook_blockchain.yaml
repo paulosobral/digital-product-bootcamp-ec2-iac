@@ -47,11 +47,26 @@
         enabled: true
         state: started
 
-    - name: Copy Docker Compose files
+    - name: "Create a directory {{ docker_compose_project_path }} if it does not exist"
+      file:
+        path: "{{ docker_compose_project_path }}"
+        state: directory
+
+    - name: Copy Docker Compose file
       copy:
-        src: ../03-docker-compose/docker-compose.yml ./03-docker-compose/common-blockscout.env ./03-docker-compose/common-smart-contract-verifier.env
-        dest: "{{ docker_compose_project_path }}"
-        
+        src: "{{ playbook_dir }}/docker-compose/docker-compose.yml"
+        dest: "{{ docker_compose_project_path }}/docker-compose.yml"
+    
+    - name: Copy env vars blockscout
+      copy:
+        src: "{{ playbook_dir }}/docker-compose/common-blockscout.env"
+        dest: "{{ docker_compose_project_path }}/common-blockscout.env"
+
+    - name: Copy env vars smart-contract-verifier
+      copy:
+        src: "{{ playbook_dir }}/docker-compose/common-smart-contract-verifier.env"
+        dest: "{{ docker_compose_project_path }}/common-smart-contract-verifier.env"
+
     - name: Run `docker-compose up`
       community.general.docker_compose:
         project_src: "{{ docker_compose_project_path }}"

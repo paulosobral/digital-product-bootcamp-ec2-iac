@@ -43,7 +43,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
-      -  ./envs/common-blockscout.env
+      -  ./common-blockscout.env
     environment:
         ETHEREUM_JSONRPC_VARIANT: 'ganache'
         ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:8545/
@@ -64,6 +64,6 @@ services:
     restart: always
     container_name: 'smart-contract-verifier'
     env_file:
-      -  ./envs/common-smart-contract-verifier.env
+      -  ./common-smart-contract-verifier.env
     ports:
       - 8043:8043
