@@ -1,58 +1,58 @@
 ---
 - hosts: blockchain
   become: yes
-  remote_user: ec2-user
+  remote_user: "{{ admin_user }}"
+  vars_files:
+    - ./vars-default.yaml
+
   tasks:
-    - name: Update all installed packages using YUM module
-      yum:
-        name: '*'
-        state: latest
-        update_cache: yes
-        update_only: yes
-    - name: Appending the group 'docker' to the user 'ec2-user' groups
+    - name: Install aptitude using apt
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Install required system packages for project
+      apt: name={{ project_required_packages }} state=latest update_cache=yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: "{{ docker_gpg_url }}"
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "{{ docker_repo }}"
+        state: present
+
+    - name: Install Docker
+      apt: name={{ docker_packges }} state=latest update_cache=yes
+
+    - name: Install Python Docker module
+      pip:
+        name={{ python_docker_modules }}
+
+    - name: Add adminstrator to docker group
       user:
-        name: ec2-user
+        name: "{{ admin_user }}"
         groups: docker
         append: yes
-    - name: Install a list of packages for Docker
-      yum:
-        name:
-          - yum-utils
-          - docker
-        state: present
-    - name: Install docker-compose from official github repo
+
+    - name: Install Docker Compose
       get_url:
-        url : https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64
+        url: "{{ docker_compose_url }}"
         dest: /usr/local/bin/docker-compose
-        mode: 'u+x,g+x'
+        mode: u+x,g+x,o+x
+
     - name: Start Docker
       service:
         name: "docker"
         enabled: true
         state: started
-  # - name: Nginx Install 
-  #   apt:
-  #     name: nginx
-  #     state: present
-  #     update_cache: yes
 
-  # - hostname:
-  #     name: web01
-
-  # - name: Copiando index.html personalizado
-  #   copy:
-  #     src: index.html
-  #     dest: /var/www/html/index.html
-  #   notify: Restart
-
-  # - name: restart nginx
-  #   service:
-  #     name: nginx
-  #     state: restarted
-
-
-  # handlers: 
-  # - name: Restart
-  #   service:
-  #     name: nginx
-  #     state: restarted
+    - name: Clone git repo blockchain 
+      git:
+        repo: "{{ git_project_url }}"
+        dest: "{{ git_project_path }}"
+        
+    - name: Run `docker-compose up`
+      community.general.docker_compose:
+        project_src: "{{ git_project_path }}"
+        build: true

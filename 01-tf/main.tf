@@ -3,7 +3,7 @@ module "blockchain_ec2_instance" {
 
   name = "blockchain-server"
 
-  ami                    = data.aws_ami.amazon_linux.id
+  ami                    = data.aws_ami.ubuntu_jammy.id
   instance_type          = var.instance_type
   key_name               = aws_key_pair.server.key_name
   monitoring             = var.monitoring

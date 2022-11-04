@@ -16,18 +16,12 @@ data "aws_subnet" "blockchain_public_subnet" {
 
 # Instance Module:
 
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "ubuntu_jammy" {
   most_recent = true
-
   filter {
     name   = "name"
-    values = var.ami_name
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = var.ami_owner
+  owners = ["099720109477"] # Ubuntu
 }
