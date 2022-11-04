@@ -47,12 +47,12 @@
         enabled: true
         state: started
 
-    - name: Clone git repo blockchain 
-      git:
-        repo: "{{ git_project_url }}"
-        dest: "{{ git_project_path }}"
+    - name: Copy Docker Compose files
+      copy:
+        src: ../03-docker-compose/docker-compose.yml ./03-docker-compose/common-blockscout.env ./03-docker-compose/common-smart-contract-verifier.env
+        dest: "{{ docker_compose_project_path }}"
         
     - name: Run `docker-compose up`
       community.general.docker_compose:
-        project_src: "{{ git_project_path }}"
+        project_src: "{{ docker_compose_project_path }}"
         build: true

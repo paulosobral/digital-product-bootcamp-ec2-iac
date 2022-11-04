@@ -28,7 +28,6 @@ resource "local_file" "ansible_vars_default" {
     - "software-properties-common"
     - "python3-pip"
     - "python3-setuptools"
-    - "git"
   docker_gpg_url: ${var.docker_gpg_url}
   docker_repo: ${var.docker_repo}
   docker_packges:
@@ -39,7 +38,6 @@ resource "local_file" "ansible_vars_default" {
   python_docker_modules:
     - docker==6.0.1
     - docker-compose==1.29.2
-  git_project_url: ${var.git_project_url}
-  git_project_path: ${var.git_project_path}
+  docker_compose_project_path: ${var.docker_compose_project_path}
   EOF
 }

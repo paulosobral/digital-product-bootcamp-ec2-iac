@@ -46,7 +46,7 @@ variable "iam_instance_profile" {
   type = string
 }
 
-# Project:
+# Ansible Config:
 
 variable "admin_user" {
   type = string
@@ -64,10 +64,6 @@ variable "docker_compose_url" {
   type = string
 }
 
-variable "git_project_url" {
-  type = string
-}
-
-variable "git_project_path" {
+variable "docker_compose_project_path" {
   type = string
 }

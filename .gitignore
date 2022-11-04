@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/terraform,windows,linux,ansiblenode
 # Edit at https://www.toptal.com/developers/gitignore?templates=terraform,windows,linux,ansible
 
+### Docker Compose
+**/logs/*
+**/redis-data/*
+
 ### Ansible ###
 *.retry
 hosts

@@ -15,10 +15,9 @@ key_name             = "vockey"
 monitoring           = true
 iam_instance_profile = "LabInstanceProfile"
 
-# Project:
-admin_user         = "ubuntu"
-docker_gpg_url     = "https://download.docker.com/linux/ubuntu/gpg"
-docker_repo        = "deb https://download.docker.com/linux/ubuntu focal stable"
-docker_compose_url = "https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64"
-git_project_url    = "https://github.com/paulosobral/digital-product-bootcamp-blockchain-docker.git"
-git_project_path   = "~/digital-product-bootcamp-blockchain-docker"
+# Ansible Config:
+admin_user                  = "ubuntu"
+docker_gpg_url              = "https://download.docker.com/linux/ubuntu/gpg"
+docker_repo                 = "deb https://download.docker.com/linux/ubuntu focal stable"
+docker_compose_url          = "https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64"
+docker_compose_project_path = "~/digital-product-bootcamp-blockchain-docker"
