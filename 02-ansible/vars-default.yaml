@@ -11,12 +11,12 @@
   docker_gpg_url: https://download.docker.com/linux/ubuntu/gpg
   docker_repo: deb https://download.docker.com/linux/ubuntu focal stable
   docker_packges:
-    - "docker-ce"
-    - "docker-ce-cli"
-    - "containerd.io"
+    - "docker-ce=5:20.10.21~3-0~ubuntu-focal"
+    - "docker-ce-cli=5:20.10.21~3-0~ubuntu-focal"
+    - "containerd.io=1.6.9-1"
   docker_compose_url: https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64
   python_docker_modules:
-    - docker
-    - docker-compose
+    - docker==6.0.1
+    - docker-compose==1.29.2
   git_project_url: https://github.com/paulosobral/digital-product-bootcamp-blockchain-docker.git
   git_project_path: ~/digital-product-bootcamp-blockchain-docker

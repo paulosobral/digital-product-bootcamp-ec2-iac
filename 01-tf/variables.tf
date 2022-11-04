@@ -45,3 +45,29 @@ variable "monitoring" {
 variable "iam_instance_profile" {
   type = string
 }
+
+# Project:
+
+variable "admin_user" {
+  type = string
+}
+
+variable "docker_gpg_url" {
+  type = string
+}
+
+variable "docker_repo" {
+  type = string
+}
+
+variable "docker_compose_url" {
+  type = string
+}
+
+variable "git_project_url" {
+  type = string
+}
+
+variable "git_project_path" {
+  type = string
+}

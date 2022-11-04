@@ -1,3 +1,9 @@
+resource "local_file" "server_blockchain_key" {
+  content         = tls_private_key.ssh.private_key_pem
+  filename        = "${path.module}/../02-ansible/blockchain.pem"
+  file_permission = "0600"
+}
+
 resource "local_file" "ansible_hosts" {
   filename = "${path.module}/../02-ansible/hosts"
   content  = <<EOF
@@ -13,7 +19,7 @@ resource "local_file" "ansible_hosts" {
 resource "local_file" "ansible_vars_default" {
   filename = "${path.module}/../02-ansible/vars-default.yaml"
   content  = <<EOF
-  admin_user: ubuntu
+  admin_user: ${var.admin_user}
   project_required_packages:
     - "apt-transport-https"
     - "ca-certificates"
@@ -23,17 +29,17 @@ resource "local_file" "ansible_vars_default" {
     - "python3-pip"
     - "python3-setuptools"
     - "git"
-  docker_gpg_url: https://download.docker.com/linux/ubuntu/gpg
-  docker_repo: deb https://download.docker.com/linux/ubuntu focal stable
+  docker_gpg_url: ${var.docker_gpg_url}
+  docker_repo: ${var.docker_repo}
   docker_packges:
-    - "docker-ce"
-    - "docker-ce-cli"
-    - "containerd.io"
-  docker_compose_url: https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64
+    - "docker-ce=5:20.10.21~3-0~ubuntu-focal"
+    - "docker-ce-cli=5:20.10.21~3-0~ubuntu-focal"
+    - "containerd.io=1.6.9-1"
+  docker_compose_url: ${var.docker_compose_url}
   python_docker_modules:
-    - docker
-    - docker-compose
-  git_project_url: https://github.com/paulosobral/digital-product-bootcamp-blockchain-docker.git
-  git_project_path: ~/digital-product-bootcamp-blockchain-docker
+    - docker==6.0.1
+    - docker-compose==1.29.2
+  git_project_url: ${var.git_project_url}
+  git_project_path: ${var.git_project_path}
   EOF
 }

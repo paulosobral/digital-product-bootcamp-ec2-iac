@@ -16,12 +16,12 @@ data "aws_subnet" "blockchain_public_subnet" {
 
 # Instance Module:
 
-data "aws_ami" "ubuntu_jammy" {
+data "aws_ami" "blockchain_ami" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    values = var.ami_name
   }
 
-  owners = ["099720109477"] # Ubuntu
+  owners = var.ami_owner
 }

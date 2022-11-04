@@ -4,6 +4,7 @@
 ### Ansible ###
 *.retry
 hosts
+vars-default.yaml
 
 ### Terraform ###
 # Local .terraform directories
