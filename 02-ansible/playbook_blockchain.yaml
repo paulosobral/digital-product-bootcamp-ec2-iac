@@ -54,18 +54,8 @@
 
     - name: Copy Docker Compose file
       copy:
-        src: "{{ playbook_dir }}/docker-compose/docker-compose.yml"
+        src: "{{ playbook_dir }}/docker-compose.yml"
         dest: "{{ docker_compose_project_path }}/docker-compose.yml"
-    
-    - name: Copy env vars blockscout
-      copy:
-        src: "{{ playbook_dir }}/docker-compose/common-blockscout.env"
-        dest: "{{ docker_compose_project_path }}/common-blockscout.env"
-
-    - name: Copy env vars smart-contract-verifier
-      copy:
-        src: "{{ playbook_dir }}/docker-compose/common-smart-contract-verifier.env"
-        dest: "{{ docker_compose_project_path }}/common-smart-contract-verifier.env"
 
     - name: Run `docker-compose up`
       community.general.docker_compose:

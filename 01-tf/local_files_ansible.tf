@@ -41,3 +41,29 @@ resource "local_file" "ansible_vars_default" {
   docker_compose_project_path: ${var.docker_compose_project_path}
   EOF
 }
+
+resource "local_file" "ansible_docker_compose" {
+  filename = "${path.module}/../02-ansible/docker-compose.yml"
+  content  = <<EOF
+  version: '3.8'
+
+  services:
+    ganache-cli:
+      image: 'trufflesuite/ganache'
+      restart: always
+      ports:
+        - ${var.blockchain_port}:8545
+      container_name: 'ganache_cli'
+
+    ethereum-lite-explorer:
+      depends_on:
+        - ganache-cli
+      image: 'alethio/ethereum-lite-explorer'
+      restart: always
+      ports:
+        - ${var.blockexplorer_port}:80
+      container_name: 'ethereum_lite_explorer'
+      environment:
+        APP_NODE_URL: 'http://${aws_eip.blockchain_eip.public_ip}:${var.blockchain_port}'
+  EOF
+}
