@@ -16,7 +16,7 @@ This terraform repository aims to provision the necessary configurations on the 
 
 ### Configuring the AWS Cloud Provider
 
-1. Enter the AWS account credentials in the GitHub Secrets of this repository (Settings -> Secrets -> Actions):
+1. Enter the AWS account credentials (environment variables `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN`) in the GitHub Secrets of this repository (Settings -> Secrets -> Actions):
 
 ![Set GitHub Secrets in this repo](./assets/github-secrets.png "Set GitHub Secrets in this repo")
 
@@ -56,4 +56,6 @@ When approving an automatically opened pull request, the `.github/apply-destroy-
 
 With the pipeline execution without destruction, after all the steps are successful, open the terraform apply step in actions to find the elastic ip generated for the instance:
 
-![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white) ![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions Success Elastic IP](./assets/gitaction-ec2-success-elastic-ip.png "GitHub Actions Success Elastic IP")
+
+![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white) ![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
