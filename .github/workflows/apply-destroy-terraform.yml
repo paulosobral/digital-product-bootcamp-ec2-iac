@@ -27,14 +27,16 @@ jobs:
         run: cd ${{ github.workspace }}/01-tf && terraform validate
       - name: Terraform plan
         run: cd ${{ github.workspace }}/01-tf && terraform plan
-      - name: Check Terraform apply or Terraform destroy
+      - name: terraform-apply-or-destroy
         run: |
           if cd ${{ github.workspace }}/01-tf && grep 'destroy: true' destroy.yml ; then
             cd ${{ github.workspace }}/01-tf && terraform destroy --auto-approve && exit 1
           else
             cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve
           fi
+        continue-on-error: true
       - name: Install Ansible
+        if: steps.terraform-apply-or-destroy.outcome != 'success'
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
         run: ansible-galaxy collection install community.general
