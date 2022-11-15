@@ -37,6 +37,15 @@ Choose which status checks must pass before branches can be merged into a branch
 3. **Require branches to be up to date before merging**
 This ensures pull requests targeting a matching branch have been tested with the latest code. This setting will not take effect unless at least one status check is enabled (see below).
 
+### project folder structure
+
+The project contains two main folders, separating the terraform HCL source code that provisions the EC2 instance with the security group, Elastic Ip and ansible files:
+
+1. 01-tf
+2. 02-ansible
+
+As soon as the terraform apply command is applied inside the `01-tf` folder, the necessary files are dynamically generated with the information of the new EC2 instance created for the execution of ansible and docker compose in the `02-ansible` folder (dynamic files generated in the `01-tf/local_files_ansible.tf`).
+
 ### Branch feature/***
 
 For the development of new features, create a branch following the pattern: `feature/***` and perform the pull that will perform the initial configuration of terraform validations using the action `.github/validate-terraform.yml`. At the end of the validation, the pull request to the main branch is automatically performed.
@@ -44,5 +53,7 @@ For the development of new features, create a branch following the pattern: `fea
 ### Branch main
 
 When approving an automatically opened pull request, the `.github/apply-destroy-terraform.yml` action is triggered. Which checks whether terraform should be applied (contents of the `destroy.yml` file with the content `destroy: false`) or destroyed (contents of the `destroy.yml` file with the content `destroy: true`).
+
+With the pipeline execution without destruction, after all the steps are successful, open the terraform apply step in actions to find the elastic ip generated for the instance:
 
 ![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white) ![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
