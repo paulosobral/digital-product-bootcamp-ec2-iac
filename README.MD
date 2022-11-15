@@ -8,9 +8,9 @@ The project aims to provision a **non-mining blockchain testnet based on the Eth
 
 ![Project architecture](./assets/bootcamp-blockchain-v2.drawio.png "Project architecture")
 
-## Digital Product Bootcamp Network IaC
+## Digital Product Bootcamp EC2 IaC
 
-This terraform repository aims to provision the necessary network infrastructure for the test blockchain network on the AWS cloud: 1 VPC, 1 Public Subnet, Internet Gateway and routing tables using the IaC Terraform language + GitHub Actions CD/CI flow.
+This terraform repository aims to provision the necessary configurations on the EC2 instance to run blockchain and blockexplorer applications via Docker compose, with applications accessible via ports `4000` and `8545` using Elastic IP.
 
 ## How to begin
 
