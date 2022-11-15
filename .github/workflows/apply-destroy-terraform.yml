@@ -34,11 +34,6 @@ jobs:
           else
             cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve
           fi
-
-  ansible-playbook:
-    runs-on: ubuntu-latest
-    needs: terraform-apply-destroy
-    steps:
       - name: Install Ansible
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
