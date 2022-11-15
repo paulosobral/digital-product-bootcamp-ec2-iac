@@ -36,7 +36,7 @@ jobs:
           fi
         continue-on-error: true
       - name: Install Ansible
-        if: steps.terraform-apply-or-destroy.outcome != 'success'
+        if: steps.terraform-apply-or-destroy.outcome == 'success'
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
         run: ansible-galaxy collection install community.general
