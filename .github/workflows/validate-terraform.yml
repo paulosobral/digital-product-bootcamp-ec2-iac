@@ -24,9 +24,9 @@ jobs:
         run: |
           cd ${{ github.workspace }}/01-tf && terraform init
       - name: Terraform validate
-        run: terraform validate
+        run: cd ${{ github.workspace }}/01-tf && terraform validate
       - name: Terraform plan
-        run: ls && terraform plan
+        run: cd ${{ github.workspace }}/01-tf && terraform plan
       - name: Pull-request branch to main
         uses: repo-sync/pull-request@v2
         with:
