@@ -26,7 +26,7 @@ jobs:
       - name: Terraform validate
         run: terraform validate
       - name: Terraform plan
-        run: ls | terraform plan
+        run: ls && terraform plan
       - name: Pull-request branch to main
         uses: repo-sync/pull-request@v2
         with:
