@@ -1,0 +1,63 @@
+---
+- hosts: blockchain
+  become: yes
+  remote_user: "{{ admin_user }}"
+  vars_files:
+    - ./vars-default.yaml
+
+  tasks:
+    - name: Install aptitude using apt
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Install required system packages for project
+      apt: name={{ project_required_packages }} state=latest update_cache=yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: "{{ docker_gpg_url }}"
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "{{ docker_repo }}"
+        state: present
+
+    - name: Install Docker
+      apt: name={{ docker_packges }} state=latest update_cache=yes
+
+    - name: Install Python Docker module
+      pip:
+        name={{ python_docker_modules }}
+
+    - name: Add adminstrator to docker group
+      user:
+        name: "{{ admin_user }}"
+        groups: docker
+        append: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: "{{ docker_compose_url }}"
+        dest: /usr/local/bin/docker-compose
+        mode: u+x,g+x,o+x
+
+    - name: Start Docker
+      service:
+        name: "docker"
+        enabled: true
+        state: started
+
+    - name: "Create a directory {{ docker_compose_project_path }} if it does not exist"
+      file:
+        path: "{{ docker_compose_project_path }}"
+        state: directory
+
+    - name: Copy Docker Compose file
+      copy:
+        src: "{{ playbook_dir }}/docker-compose.yml"
+        dest: "{{ docker_compose_project_path }}/docker-compose.yml"
+
+    - name: Run `docker-compose up`
+      community.general.docker_compose:
+        project_src: "{{ docker_compose_project_path }}"
+        build: true

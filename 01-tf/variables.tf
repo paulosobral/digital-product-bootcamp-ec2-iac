@@ -8,16 +8,16 @@ variable "vpc_public_subnet" {
   type = list(string)
 }
 
-variable "ingress_cidr_blocks" {
+variable "sg_cidr_blocks" {
   type = list(string)
 }
 
-variable "ingress_rules" {
-  type = list(string)
+variable "blockchain_port" {
+  type = number
 }
 
-variable "egress_rules" {
-  type = list(string)
+variable "blockexplorer_port" {
+  type = number
 }
 
 # Instance Module:
@@ -46,7 +46,24 @@ variable "iam_instance_profile" {
   type = string
 }
 
-variable "docker_compose_instance_version" {
-  type    = string
-  default = "2.10.2"
+# Ansible Config:
+
+variable "admin_user" {
+  type = string
+}
+
+variable "docker_gpg_url" {
+  type = string
+}
+
+variable "docker_repo" {
+  type = string
+}
+
+variable "docker_compose_url" {
+  type = string
+}
+
+variable "docker_compose_project_path" {
+  type = string
 }
