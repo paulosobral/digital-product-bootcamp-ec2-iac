@@ -39,6 +39,8 @@ jobs:
         if: steps.terraform-apply-or-destroy.outcome == 'success'
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
+        if: steps.terraform-apply-or-destroy.outcome == 'success'
         run: ansible-galaxy collection install community.general
       - name: Run ansible-playbook
+        if: steps.terraform-apply-or-destroy.outcome == 'success'
         run: cd ${{ github.workspace }}/02-ansible && ansible-playbook playbook_blockchain.yaml
