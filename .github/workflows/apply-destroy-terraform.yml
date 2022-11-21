@@ -27,20 +27,20 @@ jobs:
         run: cd ${{ github.workspace }}/01-tf && terraform validate
       - name: Terraform plan
         run: cd ${{ github.workspace }}/01-tf && terraform plan
-      - name: terraform-apply-or-destroy
+      - name: terraform_apply_or_destroy
+        continue-on-error: true
         run: |
           if cd ${{ github.workspace }}/01-tf && grep 'destroy: true' destroy.yml ; then
             cd ${{ github.workspace }}/01-tf && terraform destroy --auto-approve && exit 1
           else
-            cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve && exit 0
+            cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve
           fi
-        continue-on-error: true
       - name: Install Ansible
-        if: steps.terraform-apply-or-destroy.outcome == 'success'
+        if: steps.terraform_apply_or_destroy.outcome == 'success'
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
-        if: steps.terraform-apply-or-destroy.outcome == 'success'
+        if: steps.terraform_apply_or_destroy.outcome == 'success'
         run: ansible-galaxy collection install community.general
       - name: Run ansible-playbook
-        if: steps.terraform-apply-or-destroy.outcome == 'success'
+        if: steps.terraform_apply_or_destroy.outcome == 'success'
         run: cd ${{ github.workspace }}/02-ansible && ansible-playbook playbook_blockchain.yaml
