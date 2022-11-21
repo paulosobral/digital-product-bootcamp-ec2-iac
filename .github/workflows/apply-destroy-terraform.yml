@@ -32,7 +32,7 @@ jobs:
           if cd ${{ github.workspace }}/01-tf && grep 'destroy: true' destroy.yml ; then
             cd ${{ github.workspace }}/01-tf && terraform destroy --auto-approve && exit 1
           else
-            cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve
+            cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve && exit 0
           fi
         continue-on-error: true
       - name: Install Ansible
