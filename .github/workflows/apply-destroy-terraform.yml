@@ -36,11 +36,11 @@ jobs:
           fi
         continue-on-error: true
       - name: Install Ansible
-        if: steps.terraform_apply_or_destroy.outcome == 'success'
+        if: steps.terraform_apply_or_destroy.conclusion == 'success'
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
-        if: steps.terraform_apply_or_destroy.outcome == 'success'
+        if: steps.terraform_apply_or_destroy.conclusion == 'success'
         run: ansible-galaxy collection install community.general
       - name: Run ansible-playbook
-        if: steps.terraform_apply_or_destroy.outcome == 'success'
+        if: steps.terraform_apply_or_destroy.conclusion == 'success'
         run: cd ${{ github.workspace }}/02-ansible && ansible-playbook playbook_blockchain.yaml
