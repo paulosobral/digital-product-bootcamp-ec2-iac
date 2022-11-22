@@ -35,11 +35,11 @@ jobs:
             cd ${{ github.workspace }}/01-tf && terraform apply --auto-approve && echo "RUN_ANSIBLE=true" >> $GITHUB_ENV
           fi
       - name: Install Ansible
-        if: $RUN_ANSIBLE == 'true'
+        if: ${{ env.RUN_ANSIBLE == 'true' }}
         run: python3 -m pip install --user ansible
       - name: Install community.general.docker_compose Ansible plugin
-        if: $RUN_ANSIBLE == 'true'
+        if: ${{ env.RUN_ANSIBLE == 'true' }}
         run: ansible-galaxy collection install community.general
       - name: Run ansible-playbook
-        if: $RUN_ANSIBLE == 'true'
+        if: ${{ env.RUN_ANSIBLE == 'true' }}
         run: cd ${{ github.workspace }}/02-ansible && ansible-playbook playbook_blockchain.yaml
