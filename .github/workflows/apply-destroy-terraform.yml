@@ -27,7 +27,7 @@ jobs:
         run: cd ${{ github.workspace }}/01-tf && terraform validate
       - name: Terraform plan
         run: cd ${{ github.workspace }}/01-tf && terraform plan
-      - name: terraform_apply_or_destroy
+      - name: terraform Apply or Destroy
         run: |
           if cd ${{ github.workspace }}/01-tf && grep 'destroy: true' destroy.yml ; then
             cd ${{ github.workspace }}/01-tf && terraform destroy --auto-approve && echo "RUN_ANSIBLE=false" >> $GITHUB_ENV
