@@ -1,5 +1,5 @@
 module "cloudwatch_agent" {
-  source = "git::https://github.com/cloudposse/terraform-aws-cloudwatch-agent?ref=master"
+  source = "git::https://github.com/paulosobral/terraform-aws-cloudwatch-agent?ref=develop"
 
   name      = "cloudwatch_agent"
   namespace = "blockchain"
