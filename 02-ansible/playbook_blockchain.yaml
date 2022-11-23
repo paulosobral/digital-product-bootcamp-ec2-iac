@@ -12,14 +12,14 @@
     - name: Install required system packages for project
       apt: name={{ project_required_packages }} state=latest update_cache=yes
 
-    - name: Download CloudWatch Logs Agent
+    - name: Download AWS CloudWatch Logs Agent
       get_url:
         url: "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py"
-        dest: "/home/{{ admin_user }}/awslogs-agent-setup.py"
+        dest: /home/{{ admin_user }}/awslogs-agent-setup.py
         mode: u+x,g+x,o+x
 
-    - name: Run Py script
-      command: "/home/{{ admin_user }}/awslogs-agent-setup.py --region us-east-1"
+    - name: Run AWS CloudWatch Logs Agent Py Script installer
+      command: /home/{{ admin_user }}/awslogs-agent-setup.py --region us-east-1
       become: yes
       become_user: root
 
