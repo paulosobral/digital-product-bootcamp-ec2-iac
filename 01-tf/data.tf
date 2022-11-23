@@ -25,3 +25,7 @@ data "aws_ami" "blockchain_ami" {
 
   owners = var.ami_owner
 }
+
+data "template_file" "user_data_file" {
+  template = file("${path.module}/user_data.sh")
+}
