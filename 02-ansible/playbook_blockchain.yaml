@@ -12,21 +12,6 @@
     - name: Install required system packages for project
       apt: name={{ project_required_packages }} state=latest update_cache=yes
 
-    - name: Download AWS CloudWatch Logs Agent
-      get_url:
-        url: "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py"
-        dest: /home/{{ admin_user }}/awslogs-agent-setup.py
-        mode: u+x,g+x,o+x
-
-    - name: Run AWS CloudWatch Logs Agent Py Script installer
-      command:
-        chdir: /home/{{ admin_user }}/
-        argv:
-          - python3 ./awslogs-agent-setup.py
-          - --region us-east-1
-      become: yes
-      become_user: root
-
     - name: Add Docker GPG key
       apt_key:
         url: "{{ docker_gpg_url }}"
