@@ -10,6 +10,7 @@ module "blockchain_ec2_instance" {
   vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_blockchain_port.id, aws_security_group.allow_blockexplorer_port.id]
   subnet_id              = data.aws_subnet.blockchain_public_subnet.id
   iam_instance_profile   = var.iam_instance_profile
+  user_data              = data.template_file.user_data_file.rendered
 
   tags = {
     Terraform = "true"
