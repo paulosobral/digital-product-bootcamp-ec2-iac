@@ -1,13 +1,4 @@
 {
-    "logs": {
-      "collect_list": [ 
-      {
-        "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/test.log", 
-        "log_group_name": "Cloudwatch Agent EC2", 
-        "log_stream_name": "test.log"
-      }
-      ]
-    },
     "metrics": {
       "aggregation_dimensions": [
         ["InstanceId"],
@@ -57,6 +48,22 @@
           "metrics_collection_interval": ${metrics_collection_interval}
         }
       }
+    },
+    "logs": {
+      "logs_collected": {
+        "files": {
+          "collect_list": [
+            {
+              "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+              "log_group_name": "amazon-cloudwatch-agent.log",
+              "log_stream_name": "amazon-cloudwatch-agent.log",
+              "timezone": "UTC"
+            }
+          ]
+        }
+      },
+      "log_stream_name": "my_log_stream_name",
+      "force_flush_interval" : 15
     }
   }
   
