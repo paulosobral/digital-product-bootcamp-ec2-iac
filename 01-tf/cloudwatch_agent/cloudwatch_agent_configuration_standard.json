@@ -58,11 +58,16 @@
               "log_group_name": "amazon-cloudwatch-agent.log",
               "log_stream_name": "amazon-cloudwatch-agent.log",
               "timezone": "UTC"
+            },
+            {
+              "file_path": "/var/lib/docker/containers/**-json.log",
+              "log_group_name": "docker-compose",
+              "log_stream_name": "docker-compose",
+              "timezone": "UTC"
             }
           ]
         }
       },
-      "log_stream_name": "my_log_stream_name",
       "force_flush_interval" : 15
     }
   }
