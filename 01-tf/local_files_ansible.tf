@@ -1,6 +1,6 @@
 resource "local_file" "server_blockchain_key" {
   content         = tls_private_key.ssh.private_key_pem
-  filename        = "${path.module}/../02-ansible/blockchain.pem"
+  filename        = "${path.module}/../02-ansible/${var.server_blockchain_key_filename}"
   file_permission = "0600"
 }
 
@@ -11,7 +11,7 @@ resource "local_file" "ansible_hosts" {
   ${aws_eip.blockchain_eip.public_ip}
 
   [blockchain:vars]
-  ansible_private_key_file=./blockchain.pem
+  ansible_private_key_file=./${var.server_blockchain_key_filename}
   ansible_user=ubuntu
   EOF
 }
@@ -21,23 +21,23 @@ resource "local_file" "ansible_vars_default" {
   content  = <<EOF
   admin_user: ${var.admin_user}
   project_required_packages:
-    - "apt-transport-https"
-    - "ca-certificates"
-    - "curl"
-    - "gnupg-agent"
-    - "software-properties-common"
-    - "python3-pip"
-    - "python3-setuptools"
+  %{for packages in var.project_required_packages~}
+  - ${packages}
+  %{endfor~}
+
   docker_gpg_url: ${var.docker_gpg_url}
   docker_repo: ${var.docker_repo}
-  docker_packges:
-    - "docker-ce=5:20.10.21~3-0~ubuntu-focal"
-    - "docker-ce-cli=5:20.10.21~3-0~ubuntu-focal"
-    - "containerd.io=1.6.9-1"
+  docker_packages:
+  %{for packages in var.docker_packages~}
+  - ${packages}
+  %{endfor~}
+
   docker_compose_url: ${var.docker_compose_url}
   python_docker_modules:
-    - docker==6.0.1
-    - docker-compose==1.29.2
+  %{for packages in var.python_docker_modules~}
+  - ${packages}
+  %{endfor~}
+
   docker_compose_project_path: ${var.docker_compose_project_path}
   EOF
 }
@@ -48,21 +48,21 @@ resource "local_file" "ansible_docker_compose" {
   version: '3.8'
 
   services:
-    ganache-cli:
-      image: 'trufflesuite/ganache'
+    blockchain:
+      image: '${var.blockchain_image}'
       restart: always
       ports:
         - ${var.blockchain_port}:8545
-      container_name: 'ganache_cli'
+      container_name: 'blockchain'
 
-    ethereum-lite-explorer:
+    blockexplorer:
       depends_on:
-        - ganache-cli
-      image: 'alethio/ethereum-lite-explorer'
+        - blockchain
+      image: '${var.blockexplorer_image}'
       restart: always
       ports:
         - ${var.blockexplorer_port}:80
-      container_name: 'ethereum_lite_explorer'
+      container_name: 'blockexplorer'
       environment:
         APP_NODE_URL: 'http://${aws_eip.blockchain_eip.public_ip}:${var.blockchain_port}'
   EOF

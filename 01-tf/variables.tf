@@ -52,6 +52,10 @@ variable "admin_user" {
   type = string
 }
 
+variable "server_blockchain_key_filename" {
+  type = string
+}
+
 variable "docker_gpg_url" {
   type = string
 }
@@ -65,6 +69,28 @@ variable "docker_compose_url" {
 }
 
 variable "docker_compose_project_path" {
+  type = string
+}
+
+variable "project_required_packages" {
+  type = list(string)
+}
+
+variable "docker_packages" {
+  type = list(string)
+}
+
+variable "python_docker_modules" {
+  type = list(string)
+}
+
+# Docker Compose Config:
+
+variable "blockchain_image" {
+  type = string
+}
+
+variable "blockexplorer_image" {
   type = string
 }
 
