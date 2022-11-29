@@ -136,6 +136,27 @@
           "metrics_collection_interval": ${metrics_collection_interval}
         }
       }
+    },
+    "logs": {
+      "logs_collected": {
+        "files": {
+          "collect_list": [
+            {
+              "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+              "log_group_name": "amazon-cloudwatch-agent.log",
+              "log_stream_name": "amazon-cloudwatch-agent.log",
+              "timezone": "UTC"
+            },
+            {
+              "file_path": "/var/lib/docker/containers/**-json.log",
+              "log_group_name": "docker-compose",
+              "log_stream_name": "docker-compose",
+              "timezone": "UTC"
+            }
+          ]
+        }
+      },
+      "force_flush_interval" : 15
     }
   }
   

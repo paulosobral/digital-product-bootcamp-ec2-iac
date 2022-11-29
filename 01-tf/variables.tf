@@ -95,15 +95,6 @@ variable "blockexplorer_image" {
 }
 
 # Cloudwatch Agent
-variable "metrics_config" {
-  description = <<EOF
-  "Which metrics should we send to cloudwatch, the default is standard. Setting this variable to advanced will send all the available metrics that are provided by the agent.
-  You can find more information here https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create-cloudwatch-agent-configuration-file-wizard.html."
-EOF
-
-  type    = string
-  default = "standard"
-}
 
 variable "aggregation_dimensions" {
   description = "Specifies the dimensions that collected metrics are to be aggregated on."
