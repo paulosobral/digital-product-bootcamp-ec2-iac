@@ -27,27 +27,17 @@ data "aws_ami" "blockchain_ami" {
 }
 
 # Cloudwatch Agent
+
 data "template_file" "cloud_init_cloudwatch_agent" {
   template = file("${path.module}/cloudwatch_agent/cloud_init.yaml")
 
   vars = {
-    cloudwatch_agent_configuration = "${var.metrics_config == "standard" ? base64encode(data.template_file.cloudwatch_agent_configuration_standard.rendered) : base64encode(data.template_file.cloudwatch_agent_configuration_advanced.rendered)}"
+    cloudwatch_agent_configuration = "${base64encode(data.template_file.cloudwatch_agent_configuration.rendered)}"
   }
 }
 
-data "template_file" "cloudwatch_agent_configuration_advanced" {
-  template = file("${path.module}/cloudwatch_agent/cloudwatch_agent_configuration_advanced.json")
-
-  vars = {
-    aggregation_dimensions      = "${jsonencode(var.aggregation_dimensions)}"
-    cpu_resources               = "${var.cpu_resources}"
-    disk_resources              = "${jsonencode(var.disk_resources)}"
-    metrics_collection_interval = "${var.metrics_collection_interval}"
-  }
-}
-
-data "template_file" "cloudwatch_agent_configuration_standard" {
-  template = file("${path.module}/cloudwatch_agent/cloudwatch_agent_configuration_standard.json")
+data "template_file" "cloudwatch_agent_configuration" {
+  template = file("${path.module}/cloudwatch_agent/cloudwatch_agent_configuration.json")
 
   vars = {
     aggregation_dimensions      = "${jsonencode(var.aggregation_dimensions)}"
