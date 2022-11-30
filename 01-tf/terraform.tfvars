@@ -25,5 +25,7 @@ docker_packages                = ["docker-ce=5:20.10.21~3-0~ubuntu-focal", "dock
 python_docker_modules          = ["docker==6.0.1", "docker-compose==1.29.2"]
 
 # Docker Compose Config:
-blockchain_image    = "trufflesuite/ganache"
-blockexplorer_image = "alethio/ethereum-lite-explorer"
+blockchain_image                 = "trufflesuite/ganache"
+blockexplorer_image              = "alethio/ethereum-lite-explorer"
+blockchain_default_balance_ether = "1000000000000000000000000000000000000000"
+blockchain_network_id            = "1337"
