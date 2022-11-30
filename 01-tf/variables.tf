@@ -94,6 +94,14 @@ variable "blockexplorer_image" {
   type = string
 }
 
+variable "blockchain_default_balance_ether" {
+  type = string
+}
+
+variable "blockchain_network_id" {
+  type = string
+}
+
 # Cloudwatch Agent
 
 variable "aggregation_dimensions" {

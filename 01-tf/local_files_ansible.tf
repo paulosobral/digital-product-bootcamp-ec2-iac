@@ -54,6 +54,11 @@ resource "local_file" "ansible_docker_compose" {
       ports:
         - ${var.blockchain_port}:8545
       container_name: 'blockchain'
+      environment:
+        debug
+        verbose
+        defaultBalanceEther: ${var.blockchain_default_balance_ether}
+        chainId: ${var.blockchain_network_id}
 
     blockexplorer:
       depends_on:
