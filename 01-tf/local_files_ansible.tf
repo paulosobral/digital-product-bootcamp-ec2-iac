@@ -55,10 +55,10 @@ resource "local_file" "ansible_docker_compose" {
         - ${var.blockchain_port}:8545
       container_name: 'blockchain'
       environment:
-        debug
-        verbose
-        defaultBalanceEther: ${var.blockchain_default_balance_ether}
-        chainId: ${var.blockchain_network_id}
+        - debug
+        - verbose
+        - defaultBalanceEther: '${var.blockchain_default_balance_ether}'
+        - chainId: '${var.blockchain_network_id}'
 
     blockexplorer:
       depends_on:
@@ -69,6 +69,6 @@ resource "local_file" "ansible_docker_compose" {
         - ${var.blockexplorer_port}:80
       container_name: 'blockexplorer'
       environment:
-        APP_NODE_URL: 'http://${aws_eip.blockchain_eip.public_ip}:${var.blockchain_port}'
+        - APP_NODE_URL: 'http://${aws_eip.blockchain_eip.public_ip}:${var.blockchain_port}'
   EOF
 }
