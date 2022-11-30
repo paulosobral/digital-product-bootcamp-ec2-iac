@@ -152,3 +152,39 @@ variable "userdata_part_merge_type" {
   type        = string
   default     = "list(append)+dict(recurse_array)+str()"
 }
+
+variable "cloudwatch_log_group_agent_name" {
+  description = "Cloudwatch log group for agent"
+  type        = string
+  default     = "amazon_cloudwatch_agent"
+}
+
+variable "cloudwatch_log_group_docker_name" {
+  description = "Cloudwatch log group for docker compose"
+  type        = string
+  default     = "docker_compose"
+}
+
+variable "cloudwatch_log_path_agent" {
+  description = "Cloudwatch log group for agent"
+  type        = string
+  default     = "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+}
+
+variable "cloudwatch_log_path_docker" {
+  description = "Cloudwatch log group for docker compose"
+  type        = string
+  default     = "/var/lib/docker/containers/**-json.log"
+}
+
+variable "cloudwatch_log_stream_agent_name" {
+  description = "Cloudwatch log group for agent"
+  type        = string
+  default     = "amazon-cloudwatch-agent.log"
+}
+
+variable "cloudwatch_log_stream_docker_name" {
+  description = "Cloudwatch log group for docker compose"
+  type        = string
+  default     = "docker-compose-json.log"
+}

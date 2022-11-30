@@ -54,15 +54,15 @@
       "files": {
         "collect_list": [
           {
-            "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
-            "log_group_name": "amazon-cloudwatch-agent.log",
-            "log_stream_name": "amazon-cloudwatch-agent.log",
+            "file_path": "${cloudwatch_log_path_agent}",
+            "log_group_name": "${cloudwatch_log_group_agent_name}",
+            "log_stream_name": "${cloudwatch_log_stream_agent_name}",
             "timezone": "UTC"
           },
           {
-            "file_path": "/var/lib/docker/containers/**-json.log",
-            "log_group_name": "docker-compose",
-            "log_stream_name": "docker-compose",
+            "file_path": "${cloudwatch_log_path_docker}",
+            "log_group_name": "${cloudwatch_log_group_docker_name}",
+            "log_stream_name": "${cloudwatch_log_stream_docker_name}",
             "timezone": "UTC"
           }
         ]
