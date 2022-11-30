@@ -40,10 +40,16 @@ data "template_file" "cloudwatch_agent_configuration" {
   template = file("${path.module}/cloudwatch_agent/cloudwatch_agent_configuration.json")
 
   vars = {
-    aggregation_dimensions      = "${jsonencode(var.aggregation_dimensions)}"
-    cpu_resources               = "${var.cpu_resources}"
-    disk_resources              = "${jsonencode(var.disk_resources)}"
-    metrics_collection_interval = "${var.metrics_collection_interval}"
+    aggregation_dimensions            = "${jsonencode(var.aggregation_dimensions)}"
+    cpu_resources                     = "${var.cpu_resources}"
+    disk_resources                    = "${jsonencode(var.disk_resources)}"
+    metrics_collection_interval       = "${var.metrics_collection_interval}"
+    cloudwatch_log_group_agent_name   = "${var.cloudwatch_log_group_agent_name}"
+    cloudwatch_log_group_docker_name  = "${var.cloudwatch_log_group_docker_name}"
+    cloudwatch_log_path_agent         = "${var.cloudwatch_log_path_agent}"
+    cloudwatch_log_path_docker        = "${var.cloudwatch_log_path_docker}"
+    cloudwatch_log_stream_agent_name  = "${var.cloudwatch_log_stream_agent_name}"
+    cloudwatch_log_stream_docker_name = "${var.cloudwatch_log_stream_docker_name}"
   }
 }
 

@@ -28,4 +28,4 @@ python_docker_modules          = ["docker==6.0.1", "docker-compose==1.29.2"]
 blockchain_image                 = "trufflesuite/ganache"
 blockexplorer_image              = "alethio/ethereum-lite-explorer"
 blockchain_default_balance_ether = "1000000000000000000000000000000000000000"
-blockchain_network_id            = "1337"
+blockchain_network_id            = "9999"
